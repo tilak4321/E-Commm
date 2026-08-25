@@ -89,7 +89,7 @@ function Register() {
 
           <br /><br />
 
-          {/* Last Name */}
+       
           <label>Last Name</label>
           <input
             type="text"
@@ -110,7 +110,7 @@ function Register() {
 
           <br /><br />
 
-          {/* Phone */}
+        
           <label>Phone Number</label>
           <input
             type="tel"
@@ -120,16 +120,14 @@ function Register() {
             onChange={(event) => {
               const value = event.target.value;
 
-              // Allow only numbers
-              if (/^[0-9]*$/.test(value)) {
-                setPhone(value);
-              }
+              
+              
             }}
           />
 
           <br /><br />
 
-          {/* Email */}
+          
           <label>Email</label>
           <input
             type="email"
@@ -140,7 +138,7 @@ function Register() {
 
           <br /><br />
 
-          {/* Password */}
+       
           <label>Password</label>
           <input
             type="password"
@@ -151,7 +149,7 @@ function Register() {
 
           <br /><br />
 
-          {/* Confirm Password */}
+     
           <label>Confirm Password</label>
           <input
             type="password"
@@ -177,7 +175,7 @@ function Register() {
 
         </form>
 
-        {/* Toast container */}
+        
         <ToastContainer />
 
       </div>
