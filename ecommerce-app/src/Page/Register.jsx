@@ -1,11 +1,15 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
-import "../index.css"
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "../index.css";
 
 function Register() {
   const [firstname, setFirstName] = useState("");
   const [lastname, setLastName] = useState("");
+  const [dob, setDob] = useState("");
+  const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmpassword, setConfirmPassword] = useState("");
@@ -14,31 +18,45 @@ function Register() {
     event.preventDefault();
 
     if (firstname.trim() === "") {
-      alert("Please enter your first name");
+      toast.warning("Please enter your first name");
       return;
     }
 
     if (lastname.trim() === "") {
-      alert("Please enter your last name");
+      toast.warning("Please enter your last name");
       return;
     }
 
+    if (dob === "") {
+      toast.warning("Please enter your date of birth");
+      return;
+    }
+
+    if (phone.trim() === "") {
+      toast.warning("Please enter your phone number");
+      return;
+    }
+
+   if (phone.length !== 10 || isNaN(Number(phone))) {
+  toast.error("Phone number must contain exactly 10 digits");
+  return;
+}
     if (email.trim() === "") {
-      alert("Please enter your email");
+      toast.warning("Please enter your email");
       return;
     }
 
     if (password.length < 8) {
-      alert("Please enter at least 8 characters for password");
+      toast.error("Please enter at least 8 characters for password");
       return;
     }
 
     if (password !== confirmpassword) {
-      alert("Passwords do not match");
+      toast.error("Passwords do not match");
       return;
     }
 
-    alert("Registration successful");
+    toast.success("Registration successful");
   };
 
   return (
@@ -48,7 +66,9 @@ function Register() {
         <img src={logo} alt="E-Commerce Logo" />
 
         <p>
-          <p>An e-commerce product description is a concise marketing paragraph that hooks shoppers by explaining what a product is, how it solves their problem, and why it is worth buying. It replaces the physical in-store experience by using vivid, sensory language to handle customer objections and drive immediate sales. High-quality paragraphs weave important search engine keywords naturally into the text so shoppers can easily discover the product online. Ultimately, a great description focuses heavily on the direct benefits to the consumer rather than just listing technical dimensions and raw materials.</p>
+          An e-commerce product description is a concise marketing paragraph
+          that hooks shoppers by explaining what a product is, how it solves
+          their problem, and why it is worth buying.
         </p>
       </div>
 
@@ -58,6 +78,7 @@ function Register() {
 
         <form onSubmit={handleRegister}>
 
+          {/* First Name */}
           <label>First Name</label>
           <input
             type="text"
@@ -68,6 +89,7 @@ function Register() {
 
           <br /><br />
 
+          {/* Last Name */}
           <label>Last Name</label>
           <input
             type="text"
@@ -75,7 +97,39 @@ function Register() {
             value={lastname}
             onChange={(event) => setLastName(event.target.value)}
           />
-               <br /><br />
+
+          <br /><br />
+
+          {/* DOB */}
+          <label>Date of Birth</label>
+          <input
+            type="date"
+            value={dob}
+            onChange={(event) => setDob(event.target.value)}
+          />
+
+          <br /><br />
+
+          {/* Phone */}
+          <label>Phone Number</label>
+          <input
+            type="tel"
+            placeholder="Enter 10 digit phone number"
+            value={phone}
+            maxLength="10"
+            onChange={(event) => {
+              const value = event.target.value;
+
+              // Allow only numbers
+              if (/^[0-9]*$/.test(value)) {
+                setPhone(value);
+              }
+            }}
+          />
+
+          <br /><br />
+
+          {/* Email */}
           <label>Email</label>
           <input
             type="email"
@@ -83,8 +137,10 @@ function Register() {
             value={email}
             onChange={(event) => setEmail(event.target.value)}
           />
-             <br /><br />
 
+          <br /><br />
+
+          {/* Password */}
           <label>Password</label>
           <input
             type="password"
@@ -92,8 +148,10 @@ function Register() {
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
-             <br /><br />
 
+          <br /><br />
+
+          {/* Confirm Password */}
           <label>Confirm Password</label>
           <input
             type="password"
@@ -103,17 +161,25 @@ function Register() {
               setConfirmPassword(event.target.value)
             }
           />
-   <br /><br />
+
+          <br /><br />
+
           <button type="submit">
             Register
           </button>
-     <br /><br />
+
+          <br /><br />
+
           <p>
             Already have an account?{" "}
             <Link to="/login">Login</Link>
           </p>
 
         </form>
+
+        {/* Toast container */}
+        <ToastContainer />
+
       </div>
 
     </div>

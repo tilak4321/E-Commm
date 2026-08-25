@@ -2,6 +2,8 @@
 import React from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Login() {
 
@@ -12,19 +14,19 @@ function Login() {
     event.preventDefault();
 
     if (email.trim() === "") {
-      alert("Please enter email");
+      toast.warning("Please enter valid  email");
       return;
     }
 
     if (password.trim() === "") {
-      alert("Please enter password");
+      toast.warning("Please enter password");
       return;
     }
 
     console.log("Email:", email);
     console.log("Password:", password);
 
-    alert("Login successful");
+    toast.success("Login successful");
   };
 
   return (
@@ -70,6 +72,8 @@ function Login() {
 
       </p>
       <a href="#">ForgotPassword</a>
+
+      <ToastContainer/>
 
     </div>
   );
